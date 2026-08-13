@@ -1,47 +1,21 @@
 const products=[
-["Oud Marakoja","Perfumes",2400,"assets/oud-marakoka.jpg"],
-["Oud For Greatness","Perfumes",2400,"assets/oud-for-greatness.jpg"],
-["Vanilla","Perfumes",1400,"assets/vanilla.jpg"],
-["Oud Supreme","Perfumes",2100,"assets/oud-supreme.jpg"],
-["Hugo Boss","Perfumes",2000,"assets/hugo-boss.jpg"],
-["Aurum Classic Watch","Watches",3499,"⌚"],["Noir Steel Watch","Watches",2999,"◉"],
-["Luna Pendant","Jewelry",1599,"◇"],["Vela Chain","Jewelry",1299,"✦"],
-["Monaco Shades","Eyewear",1999,"◒"],["Riviera Shades","Eyewear",1799,"◓"],
-["Metro Crossbody","Bags",2499,"▣"],["Daily Mini Bag","Bags",2199,"▤"],
-["Signature Bracelet","Accessories",999,"∞"],["Minimal Ring","Jewelry",799,"○"],
-["Classic Card Wallet","Accessories",1499,"▤"],["Velora Gift Set","Accessories",2299,"✧"]
+ {name:"Oud Marakoja",price:2400,image:"assets/oud-marakoka.jpg",desc:"A dark, warm oud with a smooth fruity touch — bold, polished and made to leave a lasting impression."},
+ {name:"Oud For Greatness",price:2400,image:"assets/oud-for-greatness.jpg",desc:"Rich and confident with an elegant oud character. A statement scent for evenings, events and standout moments."},
+ {name:"Vanilla",price:1400,image:"assets/vanilla.jpg",desc:"Soft, sweet and comforting with a creamy vanilla mood. An easy everyday fragrance with a cozy finish."},
+ {name:"Oud Supreme",price:2100,image:"assets/oud-supreme.jpg",desc:"A refined oud profile with depth and presence. Smooth, sophisticated and ideal when you want to feel dressed up."},
+ {name:"Hugo Boss",price:2000,image:"assets/hugo-boss.jpg",desc:"Clean, fresh and effortlessly masculine in character. A versatile choice for work, casual days and evenings."}
 ];
-const WHATSAPP_NUMBER="923120590220";
-let filter="All",bag=[];
+const WHATSAPP_NUMBER="923120590220";let bag=[];
 function money(n){return "Rs. "+n.toLocaleString("en-PK")}
-function render(){
- const q=(document.getElementById("search")?.value||"").toLowerCase();
- let list=products.filter(p=>(filter==="All"||p[1]===filter)&&(!q||p[0].toLowerCase().includes(q)||p[1].toLowerCase().includes(q)));
- document.getElementById("grid").innerHTML=list.map((p)=>`<article class="product"><div class="pic">${p[1]==="Perfumes"?`<img src="${p[3]}" alt="${p[0]} perfume">`:p[3]}</div><div class="info"><div class="tag">${p[1]}</div><h3>${p[0]}</h3><div class="row"><span class="price">${money(p[2])}</span><button class="add" onclick="add('${p[0]}')">Add +</button><button class="order" onclick="orderProduct('${p[0]}')">Order</button></div></div></article>`).join("")||"<p>No products found.</p>";
-}
-function setFilter(f){filter=f;document.querySelectorAll("#filters button").forEach(b=>b.classList.toggle("active",b.textContent===f));render();document.getElementById("shop").scrollIntoView({behavior:"smooth"})}
-function add(name){const p=products.find(x=>x[0]===name);bag.push(p);update();toast("Added to your bag")}
+function productCard(p){return `<article class="product"><a class="pic" href="products.html#${encodeURIComponent(p.name)}"><img src="${p.image}" alt="${p.name} perfume" loading="lazy"><span class="view-pill">View scent</span></a><div class="info"><div class="tag">PERFUME</div><h3>${p.name}</h3><p>${p.desc}</p><div class="row"><span class="price">${money(p.price)}</span><button class="add" onclick='add(${JSON.stringify(p.name)})'>Add +</button><button class="order" onclick='orderProduct(${JSON.stringify(p.name)})'>Order</button></div></div></article>`}
+function render(){const grid=document.getElementById("grid");if(!grid)return;const q=(document.getElementById("search")?.value||"").toLowerCase();const list=products.filter(p=>!q||p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));grid.innerHTML=list.map(productCard).join("")||"<p class='empty'>No fragrance found. Try another name.</p>"}
+function add(name){const p=products.find(x=>x.name===name);if(!p)return;bag.push(p);update();toast("Added to your bag ✦")}
 function remove(i){bag.splice(i,1);update()}
-function update(){
- document.getElementById("count").textContent=bag.length;
- document.getElementById("items").innerHTML=bag.length?bag.map((p,i)=>`<div class="item"><span>${p[0]}<br><small>${money(p[2])}</small></span><button onclick="remove(${i})">Remove</button></div>`).join(""):"<p>Your bag is empty.</p>";
- document.getElementById("total").textContent=money(bag.reduce((a,p)=>a+p[2],0));
-}
+function update(){const c=document.getElementById("count"),items=document.getElementById("items"),total=document.getElementById("total");if(c)c.textContent=bag.length;if(items)items.innerHTML=bag.length?bag.map((p,i)=>`<div class="item"><span>${p.name}<br><small>${money(p.price)}</small></span><button onclick="remove(${i})">Remove</button></div>`).join(""):"<p class='empty'>Your bag is empty.</p>";if(total)total.textContent=money(bag.reduce((a,p)=>a+p.price,0))}
 function openCart(){document.getElementById("cart").classList.add("open");document.getElementById("shade").classList.add("show")}
 function closeCart(){document.getElementById("cart").classList.remove("open");document.getElementById("shade").classList.remove("show")}
-function orderProduct(name){
- const p=products.find(x=>x[0]===name); if(!p)return;
- const msg=`Hi VELORA! I want to order this product.\n\nProduct: ${p[0]}\nCategory: ${p[1]}\nPrice: ${money(p[2])}\n\nName:\nPhone:\nCity:\nComplete address:`;
- window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank");
-}
-function checkout(){
- if(!bag.length){toast("Add a product first");return}
- const lines=bag.map(p=>`• ${p[0]} — ${money(p[2])}`).join("\n");
- const total=bag.reduce((a,p)=>a+p[2],0);
- const msg=`Hi VELORA! I want to place an order.\n\n${lines}\n\nTotal: ${money(total)}\n\nName:\nPhone:\nCity:\nComplete address:`;
- window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank");
-}
-function focusSearch(){document.getElementById("search").focus();document.getElementById("shop").scrollIntoView({behavior:"smooth"})}
-function join(e){e.preventDefault();toast("You're on the VELORA list ✦");e.target.reset()}
+function orderProduct(name){const p=products.find(x=>x.name===name);if(!p)return;const msg=`Hi VELORA! I want to order this perfume.\n\nPerfume: ${p.name}\nPrice: ${money(p.price)}\n\nName:\nPhone:\nCity:\nComplete address:`;window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank")}
+function checkout(){if(!bag.length){toast("Add a perfume first");return}const lines=bag.map(p=>`• ${p.name} — ${money(p.price)}`).join("\n");const total=bag.reduce((a,p)=>a+p.price,0);const msg=`Hi VELORA! I want to place an order.\n\n${lines}\n\nTotal: ${money(total)}\n\nName:\nPhone:\nCity:\nComplete address:`;window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(msg),"_blank")}
+function focusSearch(){const s=document.getElementById("search");if(s){document.querySelector(".products-section")?.scrollIntoView({behavior:"smooth"});setTimeout(()=>s.focus(),400)}else window.location.href="products.html"}
 let t;function toast(s){const x=document.getElementById("toast");x.textContent=s;x.classList.add("showtoast");clearTimeout(t);t=setTimeout(()=>x.classList.remove("showtoast"),1800)}
 render();update();
