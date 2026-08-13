@@ -2,42 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VELORA — Modern Accessories</title>
-<meta name="description" content="VELORA — watches, jewelry, sunglasses, bags and everyday accessories.">
+<title>VELORA — Perfumes & Accessories</title>
+<meta name="description" content="VELORA — perfumes, watches, jewelry, sunglasses, bags and everyday accessories.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="top">FREE DELIVERY OVER RS. 3,000 · CASH ON DELIVERY · EASY ORDERING ON WHATSAPP</div>
-<header><a class="brand" href="#">VELORA<span>.</span><small>ACCESSORIES</small></a>
+<header><a class="brand" href="#">VELORA<span>.</span><small>PERFUMES & ACCESSORIES</small></a>
 <nav><a href="#shop">Shop</a><a href="#categories">Categories</a><a href="#story">Our Story</a></nav>
 <div class="actions"><button onclick="focusSearch()">⌕</button><button onclick="openCart()">Bag <b id="count">0</b></button></div></header>
 
 <section class="hero"><div class="hero-copy"><p class="eyebrow">THE EVERYDAY EDIT</p><h1>Wear the<br><i>little things.</i></h1>
-<p>Curated accessories for people who like their style clean, confident and a little different.</p><a class="btn" href="#shop">Shop new arrivals →</a></div>
+<p>Curated perfumes and accessories for people who like their style clean, confident and a little different.</p><a class="btn" href="#shop">Shop collection →</a></div>
 <div class="hero-visual"><div class="disc"></div><div class="floating"><small>VELORA 01</small><strong>Signature<br>Collection</strong><em>Minimal • Modern • Yours</em></div></div></section>
 
 <section id="categories" class="section"><p class="eyebrow">SHOP BY CATEGORY</p><h2>Find your everyday essential.</h2>
 <div class="cats">
+<a href="#shop" onclick="setFilter('Perfumes')"><span>🧴</span><b>Perfumes</b><small>Signature scents</small></a>
 <a href="#shop" onclick="setFilter('Watches')"><span>⌚</span><b>Watches</b><small>Timeless pieces</small></a>
 <a href="#shop" onclick="setFilter('Jewelry')"><span>◇</span><b>Jewelry</b><small>Subtle shine</small></a>
 <a href="#shop" onclick="setFilter('Eyewear')"><span>◒</span><b>Eyewear</b><small>Statement shades</small></a>
 <a href="#shop" onclick="setFilter('Bags')"><span>▣</span><b>Bags</b><small>Carry in style</small></a>
-<a href="#shop" onclick="setFilter('Accessories')"><span>✦</span><b>Accessories</b><small>Finish the look</small></a>
 </div></section>
 
 <section id="shop" class="shop"><div class="shop-head"><div><p class="eyebrow">THE COLLECTION</p><h2>Best sellers</h2></div>
-<div id="filters"><button class="active" onclick="setFilter('All')">All</button><button onclick="setFilter('Watches')">Watches</button><button onclick="setFilter('Jewelry')">Jewelry</button><button onclick="setFilter('Eyewear')">Eyewear</button><button onclick="setFilter('Bags')">Bags</button><button onclick="setFilter('Accessories')">Accessories</button></div></div>
-<div class="search"><input id="search" oninput="render()" placeholder="Search watches, rings, bags..."></div><div id="grid" class="grid"></div></section>
+<div id="filters"><button class="active" onclick="setFilter('All')">All</button><button onclick="setFilter('Perfumes')">Perfumes</button><button onclick="setFilter('Watches')">Watches</button><button onclick="setFilter('Jewelry')">Jewelry</button><button onclick="setFilter('Eyewear')">Eyewear</button><button onclick="setFilter('Bags')">Bags</button><button onclick="setFilter('Accessories')">Accessories</button></div></div>
+<div class="search"><input id="search" oninput="render()" placeholder="Search perfumes, watches, rings, bags..."></div><div id="grid" class="grid"></div></section>
 
-<section class="feature"><div><p class="eyebrow">WHY VELORA</p><h2>Premium look.<br>Everyday prices.</h2><p>We choose versatile pieces that look good together, travel well and work beyond one outfit.</p></div>
+<section class="feature"><div><p class="eyebrow">WHY VELORA</p><h2>Premium look.<br>Everyday prices.</h2><p>We choose versatile scents and accessories that feel special, travel well and work beyond one occasion.</p></div>
 <div class="perks"><div>✓ <b>COD available</b><small>Order without a card</small></div><div>✓ <b>Easy WhatsApp orders</b><small>Quick & simple checkout</small></div><div>✓ <b>Curated collection</b><small>Less scrolling, better picks</small></div></div></section>
 
-<section id="story" class="story"><p class="eyebrow">OUR STORY</p><h2>Accessories that feel like you.</h2><p>VELORA is a modern accessories label built for everyday expression. From a clean watch to a bold pair of shades, every piece is selected to make your look feel finished.</p></section>
+<section id="story" class="story"><p class="eyebrow">OUR STORY</p><h2>Scents & accessories that feel like you.</h2><p>VELORA is a modern label built for everyday expression. From a signature fragrance to a clean watch or a bold pair of shades, every piece is selected to make your look feel finished.</p></section>
 
 <section class="newsletter"><p class="eyebrow">VELORA NOTES</p><h2>New drops in your inbox.</h2><p>Sign up for launches, offers and styling picks.</p><form onsubmit="join(event)"><input id="email" type="email" placeholder="Email address" required><button>Join →</button></form></section>
-<footer><strong>VELORA.</strong><span>© 2026 VELORA · Accessories for your everyday.</span><a href="#shop">Shop</a></footer>
+<footer><strong>VELORA.</strong><span>© 2026 VELORA · Perfumes & accessories for your everyday.</span><a href="#shop">Shop</a></footer>
 
 <div id="shade" onclick="closeCart()"></div><aside id="cart"><div class="cart-head"><h2>Your bag</h2><button onclick="closeCart()">×</button></div><div id="items"></div><div class="checkout"><div><span>Subtotal</span><b id="total">Rs. 0</b></div><button class="btn" onclick="checkout()">Order on WhatsApp →</button><small>You'll confirm your name, address & phone on WhatsApp.</small></div></aside>
 <div id="toast"></div>
